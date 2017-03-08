@@ -44,12 +44,12 @@ mysql_installed :-
 % Build
 
 :- use_module(ciaobld(messages_aux), [normal_message/2]).
-:- use_module(library(file_utils), [string_to_file/2]).
 :- use_module(library(llists), [flatten/2]).
 :- use_module(library(bundle/bundle_flags), [get_bundle_flag/2]).
 :- use_module(library(bundle/bundle_paths), [bundle_path/3]).
-:- use_module(ciaobld(third_party_config), [foreign_config_var/4]).
+:- use_module(ciaobld(third_party_config), [foreign_config_atmlist/4]).
 :- use_module(ciaobld(builder_aux), [add_rpath/3]).
+:- use_module(ciaobld(builder_aux), [update_file_from_clauses/3]).
 
 enabled := ~get_bundle_flag(persdb_mysql:enabled).
 
@@ -64,8 +64,8 @@ m_bundle_foreign_config_tool(persdb_mysql, mysql, 'mysql_config').
 mysql_prepare_bindings :-
 	( enabled(yes) ->
 	    normal_message("configuring MySQL library", []),
- 	    foreign_config_var(persdb_mysql, mysql, 'cflags', CompilerOpts),
- 	    foreign_config_var(persdb_mysql, mysql, 'libs', LinkerOpts1),
+ 	    foreign_config_atmlist(persdb_mysql, mysql, 'cflags', CompilerOpts),
+ 	    foreign_config_atmlist(persdb_mysql, mysql, 'libs', LinkerOpts1),
 	    ( mysql_auto_install(yes) ->
 	        % If installed as a third party, add ./third-party/lib
 	        % to the runtime library search path
@@ -73,10 +73,9 @@ mysql_prepare_bindings :-
 	    ; LinkerOpts2 = LinkerOpts1
 	    ),
 	    add_rpath(executable_path, LinkerOpts2, LinkerOpts),
-	    T = ~flatten([
-		    ":- extra_compiler_opts(\'"||CompilerOpts, "\').\n"||
-		    ":- extra_linker_opts(\'"||LinkerOpts, "\').\n"]),
-	    string_to_file(T, ~bundle_path(persdb_mysql, 'lib/persdb_mysql/linker_opts_auto.pl'))
+	    T = [(:- extra_compiler_opts(CompilerOpts)),
+		 (:- extra_linker_opts(LinkerOpts))],
+	    update_file_from_clauses(T, ~bundle_path(persdb_mysql, 'lib/persdb_mysql/linker_opts_auto.pl'), _)
 	; true
 	).
 
