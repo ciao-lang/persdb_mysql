@@ -238,7 +238,7 @@ atomicgoal( G ) :-
 :- doc(author, "Manuel Hermenegildo").
 :- doc(author, "Jose F. Morales").
 :- doc(author, "Manuel Carro").
-:- doc(author, "The CLIP Group").
+:- doc(address, "The CLIP group").
 :- doc(address, "@tt{clip@@dia.fi.upm.es}").
 :- doc(address, "@tt{http://www.clip.dia.fi.upm.es/}").
 :- doc(address, "Facultad de Inform@'{a}tica").
