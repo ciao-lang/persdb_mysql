@@ -26,7 +26,7 @@ EXAMPLE OF USE
 ?- ensure_loaded('predicates').
 
 %% THIRD: IMPORTING write_string/1 TO SEE TRANSLATIONS
-?- use_module(library(streams_utils), [write_string/1]).
+?- use_module(library(stream_utils), [write_string/1]).
 
 %% FOURTH: TWO EXAMPLES OF pl2sqlInsert USE
 
