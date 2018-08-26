@@ -165,6 +165,7 @@ atomicgoal( G ) :-
 
 
 %-----------------------------------------------------------------------------
+
 :- use_module(library(dynamic)).
 :- use_module(library(terms), [atom_concat/2]).
 :- use_module(library(terms_vars), [varset/2]).
@@ -172,6 +173,7 @@ atomicgoal( G ) :-
 :- use_module(library(lists), [length/2, append/3]).
 :- use_module(library(aggregates), [findall/3]).
 :- use_module(engine(internals), [term_to_meta/2, module_concat/3]).
+:- use_module(engine(system_info), [this_module/1]).
 
 :- use_module(library(persdb_mysql/mysql_client)).
 
@@ -505,7 +507,7 @@ dbretract_fact(Fact):-
 
 dbretractall_fact(Fact):-
 %        asserta_fact(issue_debug_messages(persdb_mysql)),
-	message("fact to retract is ~w",[Fact]),
+	debug_message("fact to retract is ~w",[Fact]),
 	init_sql_persdb,
 	functor(Fact, F, A),
  	sql_persistent(F/A,DBId),

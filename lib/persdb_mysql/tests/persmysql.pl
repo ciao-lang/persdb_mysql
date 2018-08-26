@@ -1,5 +1,6 @@
 :- module(persmysql, [main/0], [assertions, persdb_mysql, fsyntax]).
 
+:- use_module(engine(io_basic)).
 :- use_module(library(write)).
 :- use_module(library(format)).
 

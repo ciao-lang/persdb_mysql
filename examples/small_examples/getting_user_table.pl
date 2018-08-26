@@ -3,6 +3,7 @@
 % This example dumps the contents of the 'user' table from the 'mysql' 
 % database.
 
+:- use_module(engine(io_basic)).
 :- use_module(user_and_password).
 
 %% sql_persistent_location(Table, DataBase Spec).

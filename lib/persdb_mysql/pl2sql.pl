@@ -25,7 +25,7 @@
 :- use_package(regtypes).
 :- use_package(basicmodes).
 :- use_module(library(iso_misc)).
-:- use_module(library(lists), [append/3]).
+:- use_module(library(lists), [member/2, append/3]).
 :- use_module(library(aggregates)).
 :- use_module(library(messages), [error_message/2]).
 

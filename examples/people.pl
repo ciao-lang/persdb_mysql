@@ -2,6 +2,7 @@
 
 % Some contributions from Guy-Noel Mathieu
 
+:- use_module(engine(io_basic)).
 :- use_module(library(write)).
 :- use_module(library(format)).
 
