@@ -173,7 +173,7 @@ atomicgoal( G ) :-
 :- use_module(library(lists), [length/2, append/3]).
 :- use_module(library(aggregates), [findall/3]).
 :- use_module(engine(internals), [term_to_meta/2, module_concat/3]).
-:- use_module(engine(system_info), [this_module/1]).
+:- use_module(engine(hiord_rt), [this_module/1]).
 
 :- use_module(library(persdb_mysql/mysql_client)).
 
