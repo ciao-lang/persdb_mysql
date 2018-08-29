@@ -441,9 +441,10 @@ assert_args(_,_,_,TableName) :-
      predicates), an error will be displayed.  The predicate concerned must
      be statically (@decl{sql_persistent/3}) or dinamically
      (@pred{make_sql_persistent/3}) declared. Any uninstantiated variables in
-     the @var{Fact} will be replaced by new, private variables.  @bf{Note}:
-     @em{assertion of facts with uninstantiated variables not implemented at
-     this time.}".
+     the @var{Fact} will be replaced by new, private variables.
+
+     @bf{Note}: @em{assertion of facts with uninstantiated variables
+     not implemented at this time.}".
 
 dbassertz_fact(Fact) :-
 	functor(Fact,F,A),

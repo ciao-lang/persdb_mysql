@@ -64,6 +64,7 @@
 @includeverbatim{examples/small_examples/pl2sql_example.pl}
 @end{verbatim}
 
+   @begin{note}
    @bf{Note}: while the translator can be used directly in programs,
    it is more convenient to use a higher-level abstraction:
    @concept{persistent predicates} (implemented in the @lib{persdb}
@@ -71,6 +72,7 @@
    transparent interface between Prolog and relational databases. When
    using this library, the Prolog to SQL translation is called
    automatically as needed.
+   @end{note}
 
 ").
 
