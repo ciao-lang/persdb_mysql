@@ -1,6 +1,8 @@
 :- module(persdb_sql_tr,[sql_persistent_tr/2, sql_goal_tr/2,
 	dbId/2],[assertions]).
 
+:- use_module(engine(data_facts)).
+
 %:- reexport(library(persdb_sql(db_client),
 %	            [socketname/1,dbname/1,user/1,passwd/1])).
 %:- reexport(library(persdb_sql(pl2sql),

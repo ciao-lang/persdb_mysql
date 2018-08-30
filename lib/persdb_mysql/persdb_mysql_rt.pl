@@ -166,6 +166,7 @@ atomicgoal( G ) :-
 
 %-----------------------------------------------------------------------------
 
+:- use_module(engine(data_facts)).
 :- use_module(library(dynamic)).
 :- use_module(library(terms), [atom_concat/2]).
 :- use_module(library(terms_vars), [varset/2]).
