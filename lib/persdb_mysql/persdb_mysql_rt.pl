@@ -20,7 +20,7 @@
 	    sql_query/3,
 	    sql_get_tables/2,
 	    sql_table_types/3
-        ],[assertions, regtypes, basicmodes, det_hook]).
+        ],[assertions, regtypes, basicmodes, det_hook, dynamic]).
 
 :- reexport(library(persdb_mysql/db_client_types),
 	            [socketname/1,dbname/1,user/1,passwd/1]).
@@ -167,7 +167,6 @@ atomicgoal( G ) :-
 %-----------------------------------------------------------------------------
 
 :- use_module(engine(data_facts)).
-:- use_module(library(dynamic)).
 :- use_module(library(terms), [atom_concat/2]).
 :- use_module(library(terms_vars), [varset/2]).
 :- use_module(library(messages), [error_message/2, debug_message/2]).
