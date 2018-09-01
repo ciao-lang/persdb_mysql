@@ -6,9 +6,8 @@
 	    sqlstring/1,
 	    pl2sqlterm/3,
 	    sqlterm2string/2
-	], [dcg]).
+	], [dcg, datafacts]).
 
-:- use_module(engine(data_facts)).
 :- use_module(library(persdb_sql_common/sqltypes), 
 	  [
 %jcf%	      sybase2sqltype/2, sybase2sqltypes_list/2, sybasetype/1,
