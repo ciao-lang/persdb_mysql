@@ -245,14 +245,6 @@ atomicgoal( G ) :-
 :- doc(address, "Facultad de Inform@'{a}tica").
 :- doc(address, "Universidad Polit@'{e}cnica de Madrid").
 
-%% %% The Free Software Foundation.
-%% :- doc(copyright,"
-%% Copyright @copyright{} 1996-2002 The CLIP Group
-%% 
-%% @include{DocCopyright.lpdoc}
-%% ").
-%% :- include(library('Copyright')).
-
 :- doc(summary,"This library implements the SQL-based version of
    the generic of concept @em{persistent predicates}. As introduced in
    the filebased version documentation (the @lib{persdb} library), a
