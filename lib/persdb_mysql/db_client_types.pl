@@ -12,7 +12,7 @@
 
 % ----------------------------------------------------------------------------
 
-:- doc(title,"Types for the Low-level interface to SQL databases").
+:- doc(title,"Types for the low-level interface to SQL databases").
 
 :- doc(author,"Daniel Cabeza").
 :- doc(author,"Manuel Carro").
