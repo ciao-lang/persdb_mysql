@@ -9,6 +9,7 @@
 
 :- use_package(assertions).
 :- use_package(det_hook).
+:- use_package(datafacts).
 
 %% Data predicate to declare a predicate as a "sql persistent" one
 :- multifile('$is_sql_persistent'/3).
