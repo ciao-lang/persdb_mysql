@@ -41,13 +41,12 @@ dbqueryconnection := ~address.
 
 % ----------------------------------------------------------------------------
 
-:- true pred 
+:- trust pred 
         init(in(N), go(DbConnection)) :: 
               int * address + 
         (foreign(mysql_init), returns(DbConnection)).
-:- impl_defined(init/2).
 
-:- true pred connect(
+:- trust pred connect(
         in(DbConnection0), 
         in(Host),
         in(User),
@@ -59,40 +58,28 @@ dbqueryconnection := ~address.
         go(DbConnection)) :: 
         address * atm * atm * atm * atm * int * address * int * address + 
         (foreign(mysql_real_connect), returns(DbConnection)).
-:- impl_defined(connect/9).
 
-:- true pred disconnect(in(DbConnection0)) :: address + foreign(mysql_close).
-:- impl_defined(disconnect/1).
+:- trust pred disconnect(in(DbConnection0)) :: address + foreign(mysql_close).
 
-:- true pred num_rows(in(DbQueryConnection), go(Num)) :: address * c_int + (foreign, returns(Num)).
-:- impl_defined(num_rows/2).
+:- trust pred num_rows(in(DbQueryConnection), go(Num)) :: address * c_int + (foreign, returns(Num)).
 
-:- true pred num_fields(in(DbQueryConnection), go(Num)) :: address * c_int + (foreign, returns(Num)).
-:- impl_defined(num_fields/2).
+:- trust pred num_fields(in(DbQueryConnection), go(Num)) :: address * c_int + (foreign, returns(Num)).
 
-:- true pred free_result(in(DbQueryConnection)) :: address + foreign(mysql_free_result).
-:- impl_defined(free_result/1).
+:- trust pred free_result(in(DbQueryConnection)) :: address + foreign(mysql_free_result).
 
-:- true pred query(in(DbQueryConnection), in(Query), go(R)) :: address * string * c_int + (foreign(mysql_query), returns(R)).
-:- impl_defined(query/3).
+:- trust pred query(in(DbQueryConnection), in(Query), go(R)) :: address * string * c_int + (foreign(mysql_query), returns(R)).
 
-:- true pred use_result(in(DbConnection), go(DbQueryConnection)) :: address * address + (foreign(mysql_use_result), returns(DbQueryConnection)).
-:- impl_defined(use_result/2).
+:- trust pred use_result(in(DbConnection), go(DbQueryConnection)) :: address * address + (foreign(mysql_use_result), returns(DbQueryConnection)).
 
-:- true pred fetch_row(in(DbQueryConnection), go(Row)) :: address * address + (foreign(mysql_fetch_row), returns(Row)).
-:- impl_defined(fetch_row/2).
+:- trust pred fetch_row(in(DbQueryConnection), go(Row)) :: address * address + (foreign(mysql_fetch_row), returns(Row)).
 
-:- true pred fetch_fields(in(DbQueryConnection), go(Fields)) :: address * address + (foreign(mysql_fetch_fields), returns(Fields)).
-:- impl_defined(fetch_fields/2).
+:- trust pred fetch_fields(in(DbQueryConnection), go(Fields)) :: address * address + (foreign(mysql_fetch_fields), returns(Fields)).
 
-:- true pred error_string(in(DbConnection), go(Error)) :: address * atm + (foreign(mysql_error), do_not_free(Error), returns(Error)).
-:- impl_defined(error_string/2).
+:- trust pred error_string(in(DbConnection), go(Error)) :: address * atm + (foreign(mysql_error), do_not_free(Error), returns(Error)).
 
-:- true pred nth_string(in(N), in(Array), go(String)) :: c_int * address * string + (foreign, do_not_free(String), returns(String)).
-:- impl_defined(nth_string/3).
+:- trust pred nth_string(in(N), in(Array), go(String)) :: c_int * address * string + (foreign, do_not_free(String), returns(String)).
 
-:- true pred nth_field_type(in(N), in(Fields), go(Type)) :: c_int * address * atm + (foreign, do_not_free(Type), returns(Type)).
-:- impl_defined(nth_field_type/3).
+:- trust pred nth_field_type(in(N), in(Fields), go(Type)) :: c_int * address * atm + (foreign, do_not_free(Type), returns(Type)).
 
 :- use_foreign_source(library(persdb_mysql/mysql_client)).
 :- use_foreign_library(mysqlclient).
