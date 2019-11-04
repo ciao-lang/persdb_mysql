@@ -63,7 +63,7 @@ m_bundle_foreign_config_tool(persdb_mysql, mysql, 'mysql_config').
 
 mysql_prepare_bindings :-
 	( enabled(yes) ->
-	    normal_message("configuring MySQL library", []),
+	    normal_message("configuring MySQL interface", []),
  	    foreign_config_atmlist(persdb_mysql, mysql, 'cflags', CompilerOpts),
  	    foreign_config_atmlist(persdb_mysql, mysql, 'libs', LinkerOpts1),
 	    ( mysql_auto_install(yes) ->
