@@ -1,12 +1,12 @@
 :- module(sqltypes,
-	  [
-	      sqltype/1, accepted_type/2,
-	      get_type/2, 
-	      type_compatible/2, type_union/3,
-	      sybasetype/1, sybase2sqltypes_list/2, sybase2sqltype/2,
-	      postgrestype/1, postgres2sqltypes_list/2, postgres2sqltype/2
-	  ],
-	  [assertions,regtypes,dcg,isomodes]).
+      [
+          sqltype/1, accepted_type/2,
+          get_type/2, 
+          type_compatible/2, type_union/3,
+          sybasetype/1, sybase2sqltypes_list/2, sybase2sqltype/2,
+          postgrestype/1, postgres2sqltypes_list/2, postgres2sqltype/2
+      ],
+      [assertions,regtypes,dcg,isomodes]).
 
 
 % ----------------------------------------------------------------------------
@@ -19,12 +19,12 @@
 
 type_union(TypeA,TypeA,TypeA).
 type_union(TypeA,TypeB,TypeA) :- 
-	subtype(TypeB,TypeA).
+    subtype(TypeB,TypeA).
 type_union(TypeA,TypeB,TypeB) :- 
-	subtype(TypeA,TypeB).
+    subtype(TypeA,TypeB).
 type_union(TypeA,TypeB,TypeC) :- 
-	subtype(TypeA,TypeC),
-	subtype(TypeB,TypeC).
+    subtype(TypeA,TypeC),
+    subtype(TypeB,TypeC).
 
 
 :- pred type_compatible(TypeA,TypeB) :: sqltype * sqltype
@@ -57,16 +57,16 @@ subtype(SubType,SuperType):-
    obtains its equivalent @var{NativeType} sqltype.".
 
 accepted_type(NativeType, NativeType) :-
-	sqltype(NativeType), !.
+    sqltype(NativeType), !.
 accepted_type(SystemType, NativeType) :-
-	sybasetype(SystemType), !,
-	sybase2sqltype(SystemType, NativeType).
+    sybasetype(SystemType), !,
+    sybase2sqltype(SystemType, NativeType).
 accepted_type(SystemType, NativeType) :-
-	postgrestype(SystemType), !,
-	postgres2sqltype(SystemType, NativeType).
+    postgrestype(SystemType), !,
+    postgres2sqltype(SystemType, NativeType).
 %accepted_type(SystemType, NativeType) :-
-%	oracletype(SystemType), !,
-%	oracle2sqltype(SystemType, NativeType).
+%       oracletype(SystemType), !,
+%       oracle2sqltype(SystemType, NativeType).
 %
 % And so on, for every SQL type system
 
@@ -167,8 +167,8 @@ sybase2sqltype(_T,string). %% [long] binary, char, [long] varchar,
 
 sybase2sqltypes_list([],[]).
 sybase2sqltypes_list([SybaseType|SybaseTypes], [PrologType|PrologTypes]):-
-	sybase2sqltype(SybaseType, PrologType),
-	sybase2sqltypes_list(SybaseTypes, PrologTypes).
+    sybase2sqltype(SybaseType, PrologType),
+    sybase2sqltypes_list(SybaseTypes, PrologTypes).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%% postgreSQL 6.4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -221,8 +221,8 @@ postgres2sqltype(_T,string). %% bool, char, varchar, text
 
 postgres2sqltypes_list([],[]).
 postgres2sqltypes_list([PostgresType|PostgresTypes], [PrologType|PrologTypes]):-
-	postgres2sqltype(PostgresType, PrologType),
-	postgres2sqltypes_list(PostgresTypes, PrologTypes).
+    postgres2sqltype(PostgresType, PrologType),
+    postgres2sqltypes_list(PostgresTypes, PrologTypes).
 
 
 
@@ -233,11 +233,11 @@ postgres2sqltypes_list([PostgresType|PostgresTypes], [PrologType|PrologTypes]):-
 % yes
 
 %date(date(Year,Month,Day)) -->
-%	num1or2(Year),
-%	("-" ; "/"),
-%	num1or2(Month),
-%	("-" ; "/"),
-%	num1or2(Day).
+%       num1or2(Year),
+%       ("-" ; "/"),
+%       num1or2(Month),
+%       ("-" ; "/"),
+%       num1or2(Day).
 
 %num1or2(Num) -->
 %        [D1,D2],

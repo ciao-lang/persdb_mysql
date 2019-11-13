@@ -1,35 +1,35 @@
 :- module(_,
-        [
-	    init_sql_persdb/0,
+    [
+        init_sql_persdb/0,
 %% Was just exported to document declaration (for now done with doinclude).
-%	    sql_persistent/3,
-%	    dbname/1,
-%	    user/1,
-%	    passwd/1,
-%	    socketname/1,
- 	    dbassertz_fact/1,
- 	    dbretract_fact/1,
- 	    dbcurrent_fact/1,
-	    dbretractall_fact/1,
- 	    make_sql_persistent/3,
-	    dbfindall/4,
-%	    projterm/1,
-%	    querybody/1,
-	    dbcall/2, %% Internal predicate
-	    db_call_db_atomic_goal/2,
-	    sql_query/3,
-	    sql_get_tables/2,
-	    sql_table_types/3
-        ],[assertions, regtypes, basicmodes, det_hook, dynamic]).
+%           sql_persistent/3,
+%           dbname/1,
+%           user/1,
+%           passwd/1,
+%           socketname/1,
+        dbassertz_fact/1,
+        dbretract_fact/1,
+        dbcurrent_fact/1,
+        dbretractall_fact/1,
+        make_sql_persistent/3,
+        dbfindall/4,
+%           projterm/1,
+%           querybody/1,
+        dbcall/2, %% Internal predicate
+        db_call_db_atomic_goal/2,
+        sql_query/3,
+        sql_get_tables/2,
+        sql_table_types/3
+    ],[assertions, regtypes, basicmodes, det_hook, dynamic]).
 
 :- reexport(library(persdb_mysql/db_client_types),
-	            [socketname/1,dbname/1,user/1,passwd/1]).
+                [socketname/1,dbname/1,user/1,passwd/1]).
 
 :- reexport(library(persdb_mysql/pl2sql),
-	            [projterm/1,querybody/1]).
+                [projterm/1,querybody/1]).
 
 :- reexport(library(persdb_sql_common/sqltypes),
-	            [sqltype/1]).
+                [sqltype/1]).
 %% sql_query_one_tuple_more/2 internal predicates
 
 %% ---------------------------------------------------------------------------
@@ -42,11 +42,11 @@
 %jcf% :- regtype persLocation/1.
 %jcf% 
 %jcf% persLocation(db(Name, User, Password, Machine:Port)) :-
-%jcf% 	atm(Name),
-%jcf% 	atm(User),
-%jcf% 	atm(Password),
-%jcf% 	atm(Machine),
-%jcf% 	int(Port).
+%jcf%   atm(Name),
+%jcf%   atm(User),
+%jcf%   atm(Password),
+%jcf%   atm(Machine),
+%jcf%   int(Port).
 
 %% ---------------------------------------------------------------------------
 %% Multifile predicates.
@@ -83,10 +83,10 @@
    database.".
 
 database_desc(db(DBId,User,Passwd,Socket)) :-
-	dbname(DBId),
-	user(User),
-	passwd(Passwd),
-	socketname(Socket).
+    dbname(DBId),
+    user(User),
+    passwd(Passwd),
+    socketname(Socket).
 
 :- doc(database_desc/1,"@includedef{database_desc/1}").
 
@@ -94,7 +94,7 @@ database_desc(db(DBId,User,Passwd,Socket)) :-
    interface.".
 
 tuple(T) :-
-	list(T,atm).
+    list(T,atm).
 
 :- doc(tuple/1,"@includedef{tuple/1}").
 :- doc(doinclude, tuple/1).
@@ -106,9 +106,9 @@ tuple(T) :-
 
 answertableterm(ok).
 answertableterm(t(Answers)) :-
-	list(Answers,tuple).
+    list(Answers,tuple).
 answertableterm(err(Answer)) :-
-	term(Answer).	
+    term(Answer).   
 
 :- doc(answertableterm/1,"@includedef{answertableterm/1}").
 
@@ -116,7 +116,7 @@ answertableterm(err(Answer)) :-
 
 answertupleterm([]).
 answertupleterm(tup(T)) :-
-	tuple(T).
+    tuple(T).
 
 :- doc(answertupleterm/1,"@includedef{answertupleterm/1}").
 
@@ -132,9 +132,9 @@ answertupleterm(tup(T)) :-
     describing a Prolog predicate name with its types.".
 
 prologPredTypes(PredTypes) :-
-	PredTypes =.. [PredName|Types],
-	atm(PredName),
- 	list(Types,sqltype).
+    PredTypes =.. [PredName|Types],
+    atm(PredName),
+    list(Types,sqltype).
 
 :- doc(tableAttributes/1,"@includedef{tableAttributes/1}").
 
@@ -142,14 +142,14 @@ prologPredTypes(PredTypes) :-
     structure describing a table name and some attributes.".
 
 tableAttributes(TableAttributes) :-
- 	TableAttributes =.. [TableName|AttributeNames],
- 	atm(TableName),
- 	list(AttributeNames,atm).
+    TableAttributes =.. [TableName|AttributeNames],
+    atm(TableName),
+    list(AttributeNames,atm).
 
 :- prop persLocId(Id)  # "@var{Id} is the name of a persistent storage location.".
 
 persLocId(Id) :-
- 	atm(Id).
+    atm(Id).
 
 :- prop fact(X)  # "@var{X} is a fact (a term whose main functor is not @tt{':-'/2}).".
 
@@ -158,7 +158,7 @@ fact(_).
 :- prop atomicgoal(G)  # "@var{G} is an atomic goal.".
 
 atomicgoal( G ) :-
-	term(G).
+    term(G).
 
 :- doc(atomicgoal/1,"@var{G} is a single goal, not containing
    conjunctions, disjunctions, etc.").
@@ -177,17 +177,17 @@ atomicgoal( G ) :-
 :- use_module(library(persdb_mysql/mysql_client)).
 
 :- use_module(library(persdb_mysql/pl2sql), 
-	[pl2sqlstring/3,sqlstring/1
-	%% ,sqltype/1
-	]).
+    [pl2sqlstring/3,sqlstring/1
+    %% ,sqltype/1
+    ]).
 :- use_module(library(persdb_sql_common/sqltypes), 
-	[accepted_type/2
-	%% ,sqltype/1
-	]).
+    [accepted_type/2
+    %% ,sqltype/1
+    ]).
 :- use_module(library(persdb_sql_common/pl2sqlinsert), 
-	[pl2sqlInsert/2]).
+    [pl2sqlInsert/2]).
 :- use_module(library(persdb_mysql/delete_compiler/pl2sqldelete), 
-	[pl2sqlDelete/2]).
+    [pl2sqlDelete/2]).
 
 
 :- doc(bug,"At least in the shell, reloading a file after changing
@@ -207,10 +207,10 @@ atomicgoal( G ) :-
 %jcf%:- use_module(library(format)).
 %jcf%:- set_prolog_flag(write_strings,on).
 %jcf%jcf_message(S):-
-%jcf%	open('/home/jcorreas/cvs/Systems/Amos/DataBase/test.sql',append,Stream),
-%jcf% 	format(Stream,"~s~n",[S]),
-%jcf% 	flush_output(Stream),
-%jcf% 	close(Stream).
+%jcf%   open('/home/jcorreas/cvs/Systems/Amos/DataBase/test.sql',append,Stream),
+%jcf%   format(Stream,"~s~n",[S]),
+%jcf%   flush_output(Stream),
+%jcf%   close(Stream).
 
 
 %% ---------------------------------------------------------------------------
@@ -361,8 +361,8 @@ responses to the Prolog engine via backtracking.
 
 @begin{verbatim}
 :- sql_persistent(product( integer,    integer, string, string ),
-              product( quantity,   id,      name,   size   ),
-              radiowebdb).
+          product( quantity,   id,      name,   size   ),
+          radiowebdb).
 
 sql_persistent_location(radiowebdb,
    db('SQL Anywhere 5.0 Sample', user, pass,
@@ -380,42 +380,42 @@ sql_persistent_location(radiowebdb,
 # "Dynamic version of the @decl{sql_persistent/3} declaration.".
 
 make_sql_persistent(PrologDef, Mod, SQLDef, DBId) :-
-	PrologDef =.. [PrologName | Types],
-	SQLDef    =.. [TableName  | ArgNames],
-	functor(PrologDef, PrologName, Arity),
-	assertz_fact(sql__relation(PrologName,Arity,TableName)),
-	assert_args(Types,ArgNames,1,TableName),
-	assertz_fact(sql_persistent(PrologName/Arity,DBId)),
-	module_concat(Mod, PrologName, ModPrologName),
-	functor(Consequence, PrologName, Arity),
-	functor(Head, ModPrologName, Arity),
-	equal_args(Head, Consequence, 1, Arity),
-%	dynamic(PrologName/Arity),
-	this_module(This),
-	module_concat(This, db_call_db_atomic_goal(DBId, Consequence), Body),
-	term_to_meta((Head :- Body), Clause),
-	assertz(Clause).
+    PrologDef =.. [PrologName | Types],
+    SQLDef    =.. [TableName  | ArgNames],
+    functor(PrologDef, PrologName, Arity),
+    assertz_fact(sql__relation(PrologName,Arity,TableName)),
+    assert_args(Types,ArgNames,1,TableName),
+    assertz_fact(sql_persistent(PrologName/Arity,DBId)),
+    module_concat(Mod, PrologName, ModPrologName),
+    functor(Consequence, PrologName, Arity),
+    functor(Head, ModPrologName, Arity),
+    equal_args(Head, Consequence, 1, Arity),
+%       dynamic(PrologName/Arity),
+    this_module(This),
+    module_concat(This, db_call_db_atomic_goal(DBId, Consequence), Body),
+    term_to_meta((Head :- Body), Clause),
+    assertz(Clause).
 
 equal_args(_Pred1, _Pred2, Index, Arity):- Index > Arity, !.
 equal_args(Pred1, Pred2, Index, Arity) :-
-	arg(Index, Pred1, Arg),
-	arg(Index, Pred2, Arg),
-	Index1 is Index + 1,
-	equal_args(Pred1, Pred2, Index1, Arity).
+    arg(Index, Pred1, Arg),
+    arg(Index, Pred2, Arg),
+    Index1 is Index + 1,
+    equal_args(Pred1, Pred2, Index1, Arity).
 
 assert_args([], [], _, _) :-
-	!.
+    !.
 assert_args([Type|Ts], [ArgName|As], N, TableName) :-
-	sqltype(Type),
-	!,
-	assertz_fact(sql__attribute(N, TableName, ArgName, Type)),
-	N1 is N+1,
-	assert_args(Ts, As, N1, TableName).
+    sqltype(Type),
+    !,
+    assertz_fact(sql__attribute(N, TableName, ArgName, Type)),
+    N1 is N+1,
+    assert_args(Ts, As, N1, TableName).
 assert_args([T|_], [_|_], _, TableName) :-
-	!,
-	error_message("illegal SQL type ~w in predicate for ~w",[T, TableName]).
+    !,
+    error_message("illegal SQL type ~w in predicate for ~w",[T, TableName]).
 assert_args(_,_,_,TableName) :-
-	error_message("arity mismatch in declaration for ~w",[TableName]).
+    error_message("arity mismatch in declaration for ~w",[TableName]).
 
 
 %% ---------------------------------------------------------------------------
@@ -438,22 +438,22 @@ assert_args(_,_,_,TableName) :-
      not implemented at this time.}".
 
 dbassertz_fact(Fact) :-
-	functor(Fact,F,A),
-	debug_message("fact to assert is ~w",[Fact]),
-	init_sql_persdb,
-        debug_message("checking if ~w/~w is persistent",[F,A]),
- 	sql_persistent(F/A,DBId),
- 	debug_message("persistent predicate found, location: ~w",[DBId]),
-	debug_message("ready to call to the insertion compiler, with the fact ~w",[Fact]),
-	pl2sqlInsert(Fact,SQLString),
-	debug_message("SQL insertion sentence is ~s",[SQLString]),
-%jcf% 	jcf_message(SQLString),
-	sql_query(DBId,SQLString,ResultTerm),
-	( ResultTerm='ok' ->
-	      debug_message("Persistent fact inserted in the database",[])
-	    ;
-	      error_message("in insertion. Answer received is ~w",[ResultTerm])
-	).
+    functor(Fact,F,A),
+    debug_message("fact to assert is ~w",[Fact]),
+    init_sql_persdb,
+    debug_message("checking if ~w/~w is persistent",[F,A]),
+    sql_persistent(F/A,DBId),
+    debug_message("persistent predicate found, location: ~w",[DBId]),
+    debug_message("ready to call to the insertion compiler, with the fact ~w",[Fact]),
+    pl2sqlInsert(Fact,SQLString),
+    debug_message("SQL insertion sentence is ~s",[SQLString]),
+%jcf%   jcf_message(SQLString),
+    sql_query(DBId,SQLString,ResultTerm),
+    ( ResultTerm='ok' ->
+          debug_message("Persistent fact inserted in the database",[])
+        ;
+          error_message("in insertion. Answer received is ~w",[ResultTerm])
+    ).
 
 %% ---------------------------------------------------------------------------
 
@@ -468,21 +468,21 @@ dbassertz_fact(Fact) :-
     dinamically (@pred{make_sql_persistent/3}) declared.".
 
 dbretract_fact(Fact):-
-        functor(Fact,F,A),
-	debug_message("fact to retract is ~w",[Fact]),
-	init_sql_persdb,
- 	sql_persistent(F/A,DBId),
- 	debug_message("persistent predicate found, location: ~w",[DBId]),
-        debug_message("checking if ~w is a current fact",[Fact]),
-        dbcurrent_fact(Fact), %% fails if Fact is not a current fact
-	debug_message("~w found as a current fact",[Fact]),
-	debug_message("calling mysql_delete, with the fact ~w",[Fact]),
-%%  	           pl2sqlDelete(FactToRetract,SQLString),** we don't use
+    functor(Fact,F,A),
+    debug_message("fact to retract is ~w",[Fact]),
+    init_sql_persdb,
+    sql_persistent(F/A,DBId),
+    debug_message("persistent predicate found, location: ~w",[DBId]),
+    debug_message("checking if ~w is a current fact",[Fact]),
+    dbcurrent_fact(Fact), %% fails if Fact is not a current fact
+    debug_message("~w found as a current fact",[Fact]),
+    debug_message("calling mysql_delete, with the fact ~w",[Fact]),
+%%                 pl2sqlDelete(FactToRetract,SQLString),** we don't use
 %%                    the SQL deletion compiler because SQL Anywhere doesn't
 %%                    admit aliases in delete statements (SQL Anywhere 5.0
 %%                    bug)
-	mysql_delete(Fact,DBId),
-	debug_message("ODBC deletion done. Persistent fact deleted from the database",[]).
+    mysql_delete(Fact,DBId),
+    debug_message("ODBC deletion done. Persistent fact deleted from the database",[]).
 
 
 %% ---------------------------------------------------------------------------
@@ -499,17 +499,17 @@ dbretract_fact(Fact):-
 
 dbretractall_fact(Fact):-
 %        asserta_fact(issue_debug_messages(persdb_mysql)),
-	debug_message("fact to retract is ~w",[Fact]),
-	init_sql_persdb,
-	functor(Fact, F, A),
- 	sql_persistent(F/A,DBId),
+    debug_message("fact to retract is ~w",[Fact]),
+    init_sql_persdb,
+    functor(Fact, F, A),
+    sql_persistent(F/A,DBId),
 %% %%%%%% TO SEE: maybe there are two predicates with the same name
 %%                and located in different places (different databases, files,
 %%                persistent and non-persistent predicates,...)
- 	debug_message("persistent predicate found, location: ~w",[DBId]),
-	debug_message("calling mysql_delete, with the fact ~w",[Fact]),
-	mysql_delete(Fact,DBId),
-	debug_message("ODBC deletion done. Persistent fact deleted from the database",[]), fail.
+    debug_message("persistent predicate found, location: ~w",[DBId]),
+    debug_message("calling mysql_delete, with the fact ~w",[Fact]),
+    mysql_delete(Fact,DBId),
+    debug_message("ODBC deletion done. Persistent fact deleted from the database",[]), fail.
 dbretractall_fact(_).
 
 %% TO SEE: keep mysql_delete as an internal predicate???
@@ -526,23 +526,23 @@ dbretractall_fact(_).
 
 mysql_delete(Fact,DBId):-
 %%%%%% TO MAKE: think about deleting complex predicates
-	copy_term(Fact,FactDB),
-	pl2sqlDelete(FactDB,SQLString),
-	debug_message("Translated select sentence is ~s",[SQLString]),
-%jcf% 	jcf_message(SQLString),
+    copy_term(Fact,FactDB),
+    pl2sqlDelete(FactDB,SQLString),
+    debug_message("Translated select sentence is ~s",[SQLString]),
+%jcf%   jcf_message(SQLString),
 %% Permission to create a view and to delete PL_TMP_TO_RETRACT is needed
-	%% first we delete PL_TMP_TO_RETRACT, if it exists
-	sql_query(DBId,SQLString,ResultTerm),
-	!,
-	( ResultTerm='ok' ->
-	    debug_message("deleted",[])
-	  ;
-	    error_message("delete failed. Answer received is ~w",[ResultTerm])
-	).
+    %% first we delete PL_TMP_TO_RETRACT, if it exists
+    sql_query(DBId,SQLString,ResultTerm),
+    !,
+    ( ResultTerm='ok' ->
+        debug_message("deleted",[])
+      ;
+        error_message("delete failed. Answer received is ~w",[ResultTerm])
+    ).
 
 mysql_delete(_Fact,_DBId):- %% maybe not needed
-	error_message(" Deletion couldn't be done ",[]),
-	fail.
+    error_message(" Deletion couldn't be done ",[]),
+    fail.
 
 %% ---------------------------------------------------------------------------
 
@@ -557,15 +557,15 @@ mysql_delete(_Fact,_DBId):- %% maybe not needed
    facts (tuples) which unify with @var{Fact}.".
 
 dbcurrent_fact(Fact) :-
-	debug_message("fact to call is ~w",[Fact]),
-	init_sql_persdb,
-        functor(Fact, F, A),
+    debug_message("fact to call is ~w",[Fact]),
+    init_sql_persdb,
+    functor(Fact, F, A),
 %%%%%% TO MAKE: see if always 'user'. Better 'multifile'?
- 	debug_message("checking if ~w/~w is persistent",[F,A]),	
-	sql_persistent(F/A,DBId),
- 	debug_message("persistent predicate found, location: ~w",[DBId]),
-	debug_message("calling current_fact(~w) in database",[Fact]),
-	db_call_db_atomic_goal(DBId,Fact).
+    debug_message("checking if ~w/~w is persistent",[F,A]), 
+    sql_persistent(F/A,DBId),
+    debug_message("persistent predicate found, location: ~w",[DBId]),
+    debug_message("calling current_fact(~w) in database",[Fact]),
+    db_call_db_atomic_goal(DBId,Fact).
 
 %% ---------------------------------------------------------------------------
 %% Calling complex goals
@@ -583,30 +583,30 @@ dbcurrent_fact(Fact) :-
      definitions for details).".
 
 dbfindall(_, Pattern, ComplexGoal, Results) :-
-	findall(Pattern, ComplexGoal, Results).
+    findall(Pattern, ComplexGoal, Results).
 
 % SINCE MySQL DOES NOT SUPPORT NESTED SELECTS THIS CODE WILL NOT
 % WORK. USE findall/3 INSTEAD.
 %
 %dbfindall(DBId,Pattern,ComplexGoal,Results) :-
-%	debug_message("projecting    ~w    onto    ~w    in ~w",
-%	       [ComplexGoal,Pattern,DBId]),
-%	init_sql_persdb,
-%	sql_persistent(_,DBId),
-%	!,
-%	db_query(DBId,Pattern,ComplexGoal,ResultsList),
-%	functor(Pattern,PF,_),
-%	map_pattern_functor(ResultsList,PF,Results).
+%       debug_message("projecting    ~w    onto    ~w    in ~w",
+%              [ComplexGoal,Pattern,DBId]),
+%       init_sql_persdb,
+%       sql_persistent(_,DBId),
+%       !,
+%       db_query(DBId,Pattern,ComplexGoal,ResultsList),
+%       functor(Pattern,PF,_),
+%       map_pattern_functor(ResultsList,PF,Results).
 %
 %dbfindall(DBId,_Pattern,ComplexGoal,_Results) :-
-%	error_message("in database identifier ~w in dbfindall/4 for ~w",
-%	       [DBId,ComplexGoal]),
-%	fail.
+%       error_message("in database identifier ~w in dbfindall/4 for ~w",
+%              [DBId,ComplexGoal]),
+%       fail.
 %
 %map_pattern_functor([],_PF,[]).
 %map_pattern_functor([IResult|IResults],PF,[OResult|OResults]) :-
-%	OResult =.. [PF|IResult],
-%	map_pattern_functor(IResults,PF,OResults).
+%       OResult =.. [PF|IResult],
+%       map_pattern_functor(IResults,PF,OResults).
 
 
 %% ---------------------------------------------------------------------------
@@ -624,27 +624,27 @@ dbfindall(_, Pattern, ComplexGoal, Results) :-
    which resides in database @var{DBId}.".
 
 dbcall(DBId,ComplexGoal) :-
-	debug_message("calling ~w in ~w",[ComplexGoal,DBId]),
-	init_sql_persdb,
-	sql_persistent(_,DBId),
-	!,
-	varset(ComplexGoal,Vars),
-	Pattern =.. [foo|Vars],
-	debug_message("Calling db_query_one_tuple !~n",[]),
-	db_query_one_tuple(DBId,Pattern,ComplexGoal,ResultsList),
-	ResultsList = tup(Vars).
+    debug_message("calling ~w in ~w",[ComplexGoal,DBId]),
+    init_sql_persdb,
+    sql_persistent(_,DBId),
+    !,
+    varset(ComplexGoal,Vars),
+    Pattern =.. [foo|Vars],
+    debug_message("Calling db_query_one_tuple !~n",[]),
+    db_query_one_tuple(DBId,Pattern,ComplexGoal,ResultsList),
+    ResultsList = tup(Vars).
 
 dbcall(DBId,ComplexGoal) :-
-	error_message("in database identifier ~w in dbcall/2 for ~w",
-	       [DBId,ComplexGoal]),
-	fail.
+    error_message("in database identifier ~w in dbcall/2 for ~w",
+           [DBId,ComplexGoal]),
+    fail.
 
 %% ---------------------------------------------------------------------------
 
 :- doc(doinclude,db_query/4).
 
 :- pred db_query(+DBId,+ProjTerm,+Goal,ResultTerm)
-	:: dbconnection * projterm * querybody * tuple
+    :: dbconnection * projterm * querybody * tuple
 
 # "@var{ResultTerm} contains all the @concept{tuples} which are the
    response from database @var{DBId} to the Prolog query @var{Goal},
@@ -653,19 +653,19 @@ dbcall(DBId,ComplexGoal) :-
    posing the actual query.".
 
 db_query(DBId,ProjTerm,Goal,ResultTerm) :-
-	copy_term(pair(ProjTerm,Goal),pair(DBProjTerm,DBGoal)),
-	pl2sqlstring(DBProjTerm,DBGoal,SQLStringQuery),
-	debug_message("sending SQL query ""~s"" ",[SQLStringQuery]),
-%jcf% 	jcf_message(SQLStringQuery),
-%%	sql_query(DBId, SQLStringQuery, table(_,ResultsList) ),
-	sql_query(DBId, SQLStringQuery, t(ResultTerm) ),
-	debug_message("result is ~w",[ResultTerm]).
+    copy_term(pair(ProjTerm,Goal),pair(DBProjTerm,DBGoal)),
+    pl2sqlstring(DBProjTerm,DBGoal,SQLStringQuery),
+    debug_message("sending SQL query ""~s"" ",[SQLStringQuery]),
+%jcf%   jcf_message(SQLStringQuery),
+%%      sql_query(DBId, SQLStringQuery, table(_,ResultsList) ),
+    sql_query(DBId, SQLStringQuery, t(ResultTerm) ),
+    debug_message("result is ~w",[ResultTerm]).
 
 %% ---------------------------------------------------------------------------
 :- doc(doinclude,sql_query/3).
 
 :- pred sql_query(+DBId,+SQLString,AnswerTableTerm)
-	:: dbconnection * sqlstring * answertableterm
+    :: dbconnection * sqlstring * answertableterm
 
 # "@var{ResultTerm} is the response from database @var{DBId} to the
    @concept{SQL query} in @var{SQLString} to database
@@ -677,22 +677,22 @@ db_query(DBId,ProjTerm,Goal,ResultTerm) :-
 %%%%%% TO MAKE: change this
 
 sql_query(DBId,SQLString,ResultTerm):-
-	sql_persistent_location(DBId,db(Id,User,Passwd,Socket)),
-	mysql_connect(Socket,Id,User,Passwd,DbConnection),
-	( mysql_query(DbConnection,SQLString,ResultTerm) ->
-           true
-        ; atom_codes(SQLStringAtom,SQLString),
-	  atom_concat('in answer to ',SQLStringAtom,Error),
-	  ResultTerm = err(Error)
-	),
-	mysql_disconnect(DbConnection).
+    sql_persistent_location(DBId,db(Id,User,Passwd,Socket)),
+    mysql_connect(Socket,Id,User,Passwd,DbConnection),
+    ( mysql_query(DbConnection,SQLString,ResultTerm) ->
+       true
+    ; atom_codes(SQLStringAtom,SQLString),
+      atom_concat('in answer to ',SQLStringAtom,Error),
+      ResultTerm = err(Error)
+    ),
+    mysql_disconnect(DbConnection).
 
 %% ---------------------------------------------------------------------------
 
 :- doc(doinclude,db_query_one_tuple/4).
 
 :- pred db_query_one_tuple(+DBId,+ProjTerm,+Goal,ResultTerm)
-	:: dbconnection * projterm * querybody * answertupleterm
+    :: dbconnection * projterm * querybody * answertupleterm
 
 # "@var{ResultTerm} is one of the @concept{tuples} which are the response
    from database @var{DBId} to the Prolog query @var{Goal}, projected onto
@@ -702,19 +702,19 @@ sql_query(DBId,SQLString,ResultTerm):-
    ResultTerm, and the connection to the database finishes.".
 
 db_query_one_tuple(DBId,ProjTerm,Goal,tup(ResultTerm)) :-
-	copy_term(pair(ProjTerm,Goal),pair(DBProjTerm,DBGoal)),
-	debug_message("calling pl2sqlstring",[]),
-	pl2sqlstring(DBProjTerm,DBGoal,SQLStringQuery),!,
-	debug_message("sending SQL query ""~s"" ",[SQLStringQuery]),
-%jcf% 	jcf_message(SQLStringQuery),
-	sql_query_one_tuple(DBId, SQLStringQuery, ResultTerm),
-	debug_message("result is ~w",[ResultTerm]).
+    copy_term(pair(ProjTerm,Goal),pair(DBProjTerm,DBGoal)),
+    debug_message("calling pl2sqlstring",[]),
+    pl2sqlstring(DBProjTerm,DBGoal,SQLStringQuery),!,
+    debug_message("sending SQL query ""~s"" ",[SQLStringQuery]),
+%jcf%   jcf_message(SQLStringQuery),
+    sql_query_one_tuple(DBId, SQLStringQuery, ResultTerm),
+    debug_message("result is ~w",[ResultTerm]).
 
 %% ---------------------------------------------------------------------------
 :- doc(doinclude,sql_query_one_tuple/3).
 
 :- pred sql_query_one_tuple(+DBId,+SQLString,ResultTuple)
-	:: dbconnection * sqlstring * tuple
+    :: dbconnection * sqlstring * tuple
 
 # "@var{ResultTuple} contains an element from the set of tuples which
    represents the response in @var{DBId} to the @concept{SQL query}
@@ -724,26 +724,26 @@ db_query_one_tuple(DBId,ProjTerm,Goal,tup(ResultTerm)) :-
    to @pred{mysql_disconnect/1}).".
 
 sql_query_one_tuple(DBId,SQLString,ResultTerm) :-
-	sql_persistent_location(DBId,db(Id,User,Passwd,Socket)),
-	mysql_connect(Socket,Id,User,Passwd,DbConnection),
-	mysql_query_one_tuple(DbConnection,SQLString,DbQueryConnection),
-	Try = fetch_nd(DbConnection,DbQueryConnection,ResultTerm),
-	OnCut = fetch_nd_cut(DbConnection,DbQueryConnection),
-	OnFail = fetch_nd_fail(DbConnection,DbQueryConnection),
-	det_try(Try, OnCut, OnFail).
+    sql_persistent_location(DBId,db(Id,User,Passwd,Socket)),
+    mysql_connect(Socket,Id,User,Passwd,DbConnection),
+    mysql_query_one_tuple(DbConnection,SQLString,DbQueryConnection),
+    Try = fetch_nd(DbConnection,DbQueryConnection,ResultTerm),
+    OnCut = fetch_nd_cut(DbConnection,DbQueryConnection),
+    OnFail = fetch_nd_fail(DbConnection,DbQueryConnection),
+    det_try(Try, OnCut, OnFail).
 
 fetch_nd(DbConnection,DbQueryConnection,ResultTerm) :-
-	mysql_fetch(DbQueryConnection,tup(ResultTerm0)), \+ ResultTerm0 = [],
-	( ResultTerm0 = ResultTerm ;
-	  fetch_nd(DbConnection,DbQueryConnection,ResultTerm) ).
+    mysql_fetch(DbQueryConnection,tup(ResultTerm0)), \+ ResultTerm0 = [],
+    ( ResultTerm0 = ResultTerm ;
+      fetch_nd(DbConnection,DbQueryConnection,ResultTerm) ).
 
 fetch_nd_cut(DbConnection,DbQueryConnection) :-
-	mysql_free_query_connection(DbQueryConnection),
-        mysql_disconnect(DbConnection).
+    mysql_free_query_connection(DbQueryConnection),
+    mysql_disconnect(DbConnection).
 
 fetch_nd_fail(DbConnection,DbQueryConnection) :-
-	mysql_free_query_connection(DbQueryConnection),
-        mysql_disconnect(DbConnection).
+    mysql_free_query_connection(DbQueryConnection),
+    mysql_disconnect(DbConnection).
 
 %% ---------------------------------------------------------------------------
 %% Internal, for calling atomic goals only
@@ -764,20 +764,20 @@ fetch_nd_fail(DbConnection,DbQueryConnection) :-
    which resides in database @var{DBId}.".
 
 db_call_db_atomic_goal(DBId,Goal) :-
-	debug_message("calling ~w in ~w",[Goal,DBId]),
-	init_sql_persdb,
-	functor(Goal,F,A),
-	debug_message("checking if ~w/~w, stored in ~w, is persistent",[F,A,DBId]),
-	(  sql_persistent(F/A, DBId)
-	->
-	   debug_message("Calling db_query_one_tuple for ~w/~w ~n",[F,A]),
-	   db_query_one_tuple(DBId,Goal,Goal,ResultsList),
-	   debug_message("Return from db_query_one_tuple with ~w ~n",[ResultsList]),
-	   Goal =.. [_|OneResult],
-	   ResultsList = tup(OneResult)
-	   % member(OneResult,ResultsList)
-	;  error_message("~w/~w is not a DB persistent predicate",[F,A]),
-	   fail).
+    debug_message("calling ~w in ~w",[Goal,DBId]),
+    init_sql_persdb,
+    functor(Goal,F,A),
+    debug_message("checking if ~w/~w, stored in ~w, is persistent",[F,A,DBId]),
+    (  sql_persistent(F/A, DBId)
+    ->
+       debug_message("Calling db_query_one_tuple for ~w/~w ~n",[F,A]),
+       db_query_one_tuple(DBId,Goal,Goal,ResultsList),
+       debug_message("Return from db_query_one_tuple with ~w ~n",[ResultsList]),
+       Goal =.. [_|OneResult],
+       ResultsList = tup(OneResult)
+       % member(OneResult,ResultsList)
+    ;  error_message("~w/~w is not a DB persistent predicate",[F,A]),
+       fail).
 
 :- data db_started/0.
 
@@ -787,15 +787,15 @@ db_call_db_atomic_goal(DBId,Goal) :-
    persistent (see @decl{sql_persistent/3}) into real persistent predicates. ".
 
 init_sql_persdb:-
-	db_started, !.
+    db_started, !.
 init_sql_persdb:-
-	initialize_db,
-	assertz_fact(db_started).
+    initialize_db,
+    assertz_fact(db_started).
 
 initialize_db:-
- 	'$is_sql_persistent'(PrologDef,SQLDef,DBId),
- 	make_sql_persistent(PrologDef,SQLDef,DBId),
-	fail.
+    '$is_sql_persistent'(PrologDef,SQLDef,DBId),
+    make_sql_persistent(PrologDef,SQLDef,DBId),
+    fail.
 initialize_db.
 
 %% ---------------------------------------------------------------------------
@@ -809,38 +809,38 @@ initialize_db.
 # "@var{Tables} contains the tables available in @var{DbConnection}.".
 
 sql_get_tables(db(Id,User,Passwd,Socket),TablesList) :- !,
-	mysql_connect(Socket,Id,User,Passwd,DbConnection),
-	mysql_get_tables(DbConnection,TablesList),
-	mysql_disconnect(DbConnection).
+    mysql_connect(Socket,Id,User,Passwd,DbConnection),
+    mysql_get_tables(DbConnection,TablesList),
+    mysql_disconnect(DbConnection).
 
 sql_get_tables(DBId, TablesList):-
-	sql_persistent_location(DBId, Location),
-	sql_get_tables(Location, TablesList).
+    sql_persistent_location(DBId, Location),
+    sql_get_tables(Location, TablesList).
 
 :- pred sql_table_types(+Location,+Table,-AttrTypes)
-	:: database_desc * atm * list
+    :: database_desc * atm * list
 
 # "@var{AttrTypes} are the attributes and types of @var{Table} in
    @var{Location}.".
 
 :- pred sql_table_types(+DbConnection,+Table,-AttrTypes)
-	:: dbconnection * atm * list
+    :: dbconnection * atm * list
 
 # "@var{AttrTypes} are the attributes and types of @var{Table} in
    @var{DbConnection}.".
 
 sql_table_types(db(Id,User,Passwd,Socket),TableName,AttTypesList):-
-	mysql_connect(Socket,Id,User,Passwd,DbConnection),
-	mysql_table_types(DbConnection,TableName, AttTypesNativeList),
-	filter_types(AttTypesNativeList,AttTypesList),
-	mysql_disconnect(DbConnection).	
+    mysql_connect(Socket,Id,User,Passwd,DbConnection),
+    mysql_table_types(DbConnection,TableName, AttTypesNativeList),
+    filter_types(AttTypesNativeList,AttTypesList),
+    mysql_disconnect(DbConnection). 
 
 sql_table_types(DBId, TableName, AttTypesList):-
-	sql_persistent_location(DBId,Location),
-	sql_table_types(Location,TableName,AttTypesList).
+    sql_persistent_location(DBId,Location),
+    sql_table_types(Location,TableName,AttTypesList).
 
 %% Obtains the sqltype versions of the Native SQL System types retrieved
 filter_types([],[]).
 filter_types([[NativeId, NativeType]|NativeRest],[[NativeId,Type]|Rest]):-
-	accepted_type(NativeType, Type),
-	filter_types(NativeRest, Rest).
+    accepted_type(NativeType, Type),
+    filter_types(NativeRest, Rest).

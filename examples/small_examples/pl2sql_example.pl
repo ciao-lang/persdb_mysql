@@ -13,11 +13,11 @@ attribute(3,'PRODUCT','NAME',string).
 
 main :- 
      pl2sqlstring( f(L,K), 
-          ((product(L,N,a); product(L,N,b)),
-	   \+ product(2,3,b), 
-	   L + 2 > avg(Y, Z^product(Z,Y,a)),
-	   K is N + max(X, product(X,2,b))
-           ), T),
+      ((product(L,N,a); product(L,N,b)),
+       \+ product(2,3,b), 
+       L + 2 > avg(Y, Z^product(Z,Y,a)),
+       K is N + max(X, product(X,2,b))
+       ), T),
      write_string(T).
      
 %%     printqueries(T).

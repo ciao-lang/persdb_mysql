@@ -9,7 +9,7 @@ filepath := at_bundle(persdb_mysql, 'lib').
 filepath := at_bundle(persdb_mysql, '.'). % for examples/
 
 %    persdb_sql_common',
-%	db_client',
+%       db_client',
 
 doc_structure := 'persdb_mysql/persdb_mysql_rt'-[
     'persdb_mysql/pl2sql',

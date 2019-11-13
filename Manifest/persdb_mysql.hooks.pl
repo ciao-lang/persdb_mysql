@@ -24,19 +24,19 @@
     %
     default_comment("MySQL detected"),
     default_value_comment(no,
-        "MySQL has not been detected.  If you would like to use the\n"||
-        "Ciao-MySQL interface it is highly recommended that you stop\n"||
-        "the Ciao configuration now and install MySQL first."),
+    "MySQL has not been detected.  If you would like to use the\n"||
+    "Ciao-MySQL interface it is highly recommended that you stop\n"||
+    "the Ciao configuration now and install MySQL first."),
     rule_default(HasMySQL, has_mysql(HasMySQL)),
     %
     interactive([advanced])
 ]).
 
 has_mysql(Value) :-
-	( mysql_installed -> Value = yes ; Value = no ).
+    ( mysql_installed -> Value = yes ; Value = no ).
 
 mysql_installed :-
-	detect_c_headers(['mysql/mysql.h']).
+    detect_c_headers(['mysql/mysql.h']).
 
 % Note: libmysqlclient-dev in Debian
 
@@ -56,26 +56,26 @@ enabled := ~get_bundle_flag(persdb_mysql:enabled).
 % Prepare source for build
 % (e.g., for automatically generated code, foreign interfaces, etc.)
 '$builder_hook'(prepare_build_bin) :-
-	mysql_prepare_bindings.
+    mysql_prepare_bindings.
 
 mysql_auto_install(_) :- fail.
 m_bundle_foreign_config_tool(persdb_mysql, mysql, 'mysql_config').
 
 mysql_prepare_bindings :-
-	( enabled(yes) ->
-	    normal_message("configuring MySQL interface", []),
- 	    foreign_config_atmlist(persdb_mysql, mysql, 'cflags', CompilerOpts),
- 	    foreign_config_atmlist(persdb_mysql, mysql, 'libs', LinkerOpts1),
-	    ( mysql_auto_install(yes) ->
-	        % If installed as a third party, add ./third-party/lib
-	        % to the runtime library search path
-	        add_rpath(local_third_party, LinkerOpts1, LinkerOpts2)
-	    ; LinkerOpts2 = LinkerOpts1
-	    ),
-	    add_rpath(executable_path, LinkerOpts2, LinkerOpts),
-	    T = [(:- extra_compiler_opts(CompilerOpts)),
-		 (:- extra_linker_opts(LinkerOpts))],
-	    update_file_from_clauses(T, ~bundle_path(persdb_mysql, 'lib/persdb_mysql/linker_opts_auto.pl'), _)
-	; true
-	).
+    ( enabled(yes) ->
+        normal_message("configuring MySQL interface", []),
+        foreign_config_atmlist(persdb_mysql, mysql, 'cflags', CompilerOpts),
+        foreign_config_atmlist(persdb_mysql, mysql, 'libs', LinkerOpts1),
+        ( mysql_auto_install(yes) ->
+            % If installed as a third party, add ./third-party/lib
+            % to the runtime library search path
+            add_rpath(local_third_party, LinkerOpts1, LinkerOpts2)
+        ; LinkerOpts2 = LinkerOpts1
+        ),
+        add_rpath(executable_path, LinkerOpts2, LinkerOpts),
+        T = [(:- extra_compiler_opts(CompilerOpts)),
+             (:- extra_linker_opts(LinkerOpts))],
+        update_file_from_clauses(T, ~bundle_path(persdb_mysql, 'lib/persdb_mysql/linker_opts_auto.pl'), _)
+    ; true
+    ).
 

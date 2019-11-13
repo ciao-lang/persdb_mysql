@@ -19,23 +19,23 @@ main :- main1.
 % Using low-level commands
 
 main0 :-
-        mysql_user(User),
-        mysql_password(Password),
-        mysql_host_and_port(HP),
-        database_name(Table),
-	mysql_connect(HP, Table, User, Password, DbConnection),
-	mysql_get_tables(DbConnection, Tables),
-	mysql_disconnect(DbConnection),
-	format("Results: ~w \n",Tables).
+    mysql_user(User),
+    mysql_password(Password),
+    mysql_host_and_port(HP),
+    database_name(Table),
+    mysql_connect(HP, Table, User, Password, DbConnection),
+    mysql_get_tables(DbConnection, Tables),
+    mysql_disconnect(DbConnection),
+    format("Results: ~w \n",Tables).
 
 
 % Using an already done, higher-level command
-	
+    
 main1 :-
-        mysql_user(User),
-        mysql_password(Password),
-        mysql_host_and_port(HP),
-        database_name(Table),
-        DataBase = db(Table, User, Password, HP),
-	sql_get_tables(DataBase, Tables),
-	format("Results: ~w \n",Tables).
+    mysql_user(User),
+    mysql_password(Password),
+    mysql_host_and_port(HP),
+    database_name(Table),
+    DataBase = db(Table, User, Password, HP),
+    sql_get_tables(DataBase, Tables),
+    format("Results: ~w \n",Tables).

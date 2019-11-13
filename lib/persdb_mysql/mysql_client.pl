@@ -1,16 +1,16 @@
 :- module(mysql_client,
-	[
-	    mysql_connect/5,
-	       dbconnection/1,
-	    mysql_query/3,
-	    mysql_query_one_tuple/3,
-	       dbqueryconnection/1,
-            mysql_free_query_connection/1,
-	    mysql_fetch/2,
-	    mysql_get_tables/2,
-	    mysql_table_types/3,
-	    mysql_disconnect/1
-	],[assertions,regtypes,basicmodes,fsyntax,foreign_interface]).
+    [
+        mysql_connect/5,
+           dbconnection/1,
+        mysql_query/3,
+        mysql_query_one_tuple/3,
+           dbqueryconnection/1,
+        mysql_free_query_connection/1,
+        mysql_fetch/2,
+        mysql_get_tables/2,
+        mysql_table_types/3,
+        mysql_disconnect/1
+    ],[assertions,regtypes,basicmodes,fsyntax,foreign_interface]).
 
 :- use_module(library(persdb_mysql/db_client_types)).
 
@@ -42,22 +42,22 @@ dbqueryconnection := ~address.
 % ----------------------------------------------------------------------------
 
 :- trust pred 
-        init(in(N), go(DbConnection)) :: 
-              int * address + 
-        (foreign(mysql_init), returns(DbConnection)).
+    init(in(N), go(DbConnection)) :: 
+          int * address + 
+    (foreign(mysql_init), returns(DbConnection)).
 
 :- trust pred connect(
-        in(DbConnection0), 
-        in(Host),
-        in(User),
-        in(Passwd),
-        in(DbName),
-        in(Port), 
-        in(X),
-        in(Y),
-        go(DbConnection)) :: 
-        address * atm * atm * atm * atm * int * address * int * address + 
-        (foreign(mysql_real_connect), returns(DbConnection)).
+    in(DbConnection0), 
+    in(Host),
+    in(User),
+    in(Passwd),
+    in(DbName),
+    in(Port), 
+    in(X),
+    in(Y),
+    go(DbConnection)) :: 
+    address * atm * atm * atm * atm * int * address * int * address + 
+    (foreign(mysql_real_connect), returns(DbConnection)).
 
 :- trust pred disconnect(in(DbConnection0)) :: address + foreign(mysql_close).
 
@@ -91,61 +91,61 @@ dbqueryconnection := ~address.
 % ----------------------------------------------------------------------------
 
 mysql_connect(Host:Port, DbName, User, Passwd, DbConnection) :-
-	init(0, DbConnection0),
-        null(Null),
-        connect(DbConnection0, Host, User, Passwd, DbName, Port, Null, 0, 
-                DbConnection),
-	\+ null(DbConnection),
-        !.
+    init(0, DbConnection0),
+    null(Null),
+    connect(DbConnection0, Host, User, Passwd, DbName, Port, Null, 0, 
+            DbConnection),
+    \+ null(DbConnection),
+    !.
 mysql_connect(_Host:_Port, _DbName, _User, _Passwd, _Connection) :-
-        throw(error('could not start connection', mysql_connect)), fail.
+    throw(error('could not start connection', mysql_connect)), fail.
 
 mysql_disconnect(DbConnection) :- disconnect(DbConnection).
 
 mysql_query(DbConnection, Sentence) := AnswerTerm :-
-	Res = ~mysql_query_one_tuple(DbConnection, Sentence),
-	( Res = ~null ->
-            AnswerTerm = ~mysql_result(DbConnection)
-	; ( AnswerTerm = t(~mysql_query_2(Res)) ->
-	      true
-	  ; AnswerTerm = ~mysql_result(DbConnection)
-	  ),
-	  free_result(Res)
-	).
+    Res = ~mysql_query_one_tuple(DbConnection, Sentence),
+    ( Res = ~null ->
+        AnswerTerm = ~mysql_result(DbConnection)
+    ; ( AnswerTerm = t(~mysql_query_2(Res)) ->
+          true
+      ; AnswerTerm = ~mysql_result(DbConnection)
+      ),
+      free_result(Res)
+    ).
 
 mysql_result(DbConnection) := AnswerTerm :-
-	Error = ~error_string(DbConnection),
-	( Error = '' ->
-	    AnswerTerm = ok
-	; AnswerTerm = err(Error)
-	).
+    Error = ~error_string(DbConnection),
+    ( Error = '' ->
+        AnswerTerm = ok
+    ; AnswerTerm = err(Error)
+    ).
 
 mysql_query_2(Res) := [Y|Ys] :-
-	tup(Y) = ~mysql_fetch(Res), !,
-	Ys = ~mysql_query_2(Res).
+    tup(Y) = ~mysql_fetch(Res), !,
+    Ys = ~mysql_query_2(Res).
 mysql_query_2(_) := [].
 
 mysql_query_one_tuple(DbConnection, Sentence) := DbQueryConnection :-
-	( ~query(DbConnection, Sentence) = 0 ->
-	    DbQueryConnection = ~use_result(DbConnection)
-	; DbQueryConnection = ~null
-	).
+    ( ~query(DbConnection, Sentence) = 0 ->
+        DbQueryConnection = ~use_result(DbConnection)
+    ; DbQueryConnection = ~null
+    ).
  
 mysql_free_query_connection(DbQueryConnection) :-
-	free_result(DbQueryConnection).
+    free_result(DbQueryConnection).
 
 mysql_fetch(DbQueryConnection) := Tuple :-
-	( \+ DbQueryConnection = ~null ->
-	    Row = ~fetch_row(DbQueryConnection),
-	    Fields = ~fetch_fields(DbQueryConnection)
-	; Row = ~null
-	),
-	( \+ Row = ~null ->
-	    FieldsCount = ~num_fields(DbQueryConnection),
-	    Tuple = tup(~row_to_tuple(FieldsCount, Fields, Row))
-	; DbQueryConnection = ~null,
-          Tuple = []
-	).
+    ( \+ DbQueryConnection = ~null ->
+        Row = ~fetch_row(DbQueryConnection),
+        Fields = ~fetch_fields(DbQueryConnection)
+    ; Row = ~null
+    ),
+    ( \+ Row = ~null ->
+        FieldsCount = ~num_fields(DbQueryConnection),
+        Tuple = tup(~row_to_tuple(FieldsCount, Fields, Row))
+    ; DbQueryConnection = ~null,
+      Tuple = []
+    ).
 
 row_to_tuple(FieldsCount, Fields, Row) := ~row_to_tuple_2(0, FieldsCount, Fields, Row).
 
@@ -156,11 +156,11 @@ row_to_tuple_2(X, FieldsCount, _, _) := [] :- X >= FieldsCount, !.
 row_to_tuple_2(X, FieldsCount, Fields, Row) := [~string_to_t(~nth_field_type(X, Fields), ~nth_string(X, Row))|~row_to_tuple_2(X + 1, FieldsCount, Fields, Row)].
 
 mysql_get_tables(DbConnection) := ~flatten(Tables) :-
-	t(Tables) = ~mysql_query(DbConnection, "SHOW TABLES").
-	
+    t(Tables) = ~mysql_query(DbConnection, "SHOW TABLES").
+    
 mysql_table_types(DbConnection, TableName) := ~get_types(AttTypesList) :-
-	atom_codes(TableName, Name),
-	t(AttTypesList) = ~mysql_query(DbConnection, "SHOW COLUMNS FROM "||Name).
+    atom_codes(TableName, Name),
+    t(AttTypesList) = ~mysql_query(DbConnection, "SHOW COLUMNS FROM "||Name).
 
 get_types([]) := [].
 get_types([[Id,Type|_]|Xs]) := [[Id,~get_type(Type)]|~get_types(Xs)].
@@ -174,10 +174,10 @@ get_type_2("int"||_) := int.
 get_type_2("float"||_) := flt.
 
 flatten(A) := B :-
-	flatten_2(A, [], B).
+    flatten_2(A, [], B).
 
 flatten_2([], Ys) := Ys :- !.
 flatten_2([X|Xs], Cs) := As :- !,
-	As = ~flatten_2(X, Bs),
-	Bs = ~flatten_2(Xs, Cs).
+    As = ~flatten_2(X, Bs),
+    Bs = ~flatten_2(Xs, Cs).
 flatten_2(X, Cs) := [X|Cs].

@@ -1,14 +1,14 @@
 :- module(db_client_types,
-	[
-	    socketname/1,
-	    dbname/1,
-	    user/1,
-	    passwd/1,
-	    answertableterm/1,
-	    tuple/1,
-	    answertupleterm/1,
-	    sqlstring/1
-	],[assertions,regtypes,basicmodes]).
+    [
+        socketname/1,
+        dbname/1,
+        user/1,
+        passwd/1,
+        answertableterm/1,
+        tuple/1,
+        answertupleterm/1,
+        sqlstring/1
+    ],[assertions,regtypes,basicmodes]).
 
 % ----------------------------------------------------------------------------
 
@@ -27,8 +27,8 @@
 :- regtype socketname(IPP) # "@var{IPP} is a structure describing a complete TCP/IP port address.".
 
 socketname( IPAddress : PortNumber ) :- 
- 	atm(IPAddress),
- 	int(PortNumber).
+    atm(IPAddress),
+    int(PortNumber).
 
 :- doc(socketname/1,"@includedef{socketname/1}").
 
@@ -37,14 +37,14 @@ socketname( IPAddress : PortNumber ) :-
 :- regtype dbname(DBId) # "@var{DBId} is the identifier of an database.".
 
 dbname(DBId) :- 
-	atm(DBId).
+    atm(DBId).
 
 :- doc(dbname/1,"@includedef{dbname/1}").
 
 :- regtype user(User) # "@var{User} is a user name in the database.".
 
 user(User) :- 
-	atm(User).
+    atm(User).
 
 :- doc(user/1,"@includedef{user/1}").
 
@@ -52,7 +52,7 @@ user(User) :-
    name in the database.".
 
 passwd(Passwd) :- 
-	atm(Passwd).
+    atm(Passwd).
 
 :- doc(passwd/1,"@includedef{passwd/1}").
 
@@ -62,7 +62,7 @@ passwd(Passwd) :-
 
 answertupleterm([]).
 answertupleterm(tup(T)) :-
-	tuple(T).
+    tuple(T).
 
 :- doc(answertupleterm/1,"@includedef{answertupleterm/1}").
 
@@ -71,7 +71,7 @@ answertupleterm(tup(T)) :-
 :- regtype sqlstring(S) # "@var{S} is a string of SQL code.".
 
 sqlstring( S ) :- 
-	string(S).
+    string(S).
 
 :- doc(sqlstring/1,"@includedef{sqlstring/1}").
 
@@ -85,9 +85,9 @@ sqlstring( S ) :-
 
 answertableterm(ok).
 answertableterm(t(Answers)) :-
-	list(Answers,tuple).
+    list(Answers,tuple).
 answertableterm(err(Answer)) :-
-	term(Answer).	
+    term(Answer).   
 
 :- doc(answertableterm/1,"@includedef{answertableterm/1}").
 
@@ -95,6 +95,6 @@ answertableterm(err(Answer)) :-
    interface.".
 
 tuple(T) :-
-	list(T,atm).
+    list(T,atm).
 
 :- doc(tuple/1,"@includedef{tuple/1}").

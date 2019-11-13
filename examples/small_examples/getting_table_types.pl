@@ -15,12 +15,12 @@ database_name(mysql).
 table_name(user).
 
 main :-
-        mysql_user(User),
-        mysql_password(Password),
-        mysql_host_and_port(HP),
-        database_name(Db),
-        table_name(Table),
-	mysql_connect(HP, Db, User, Password, DbConnection),
-	mysql_table_types(DbConnection, Table, Types),
-	mysql_disconnect(DbConnection),
-	format("Results: ~w \n",Types).
+    mysql_user(User),
+    mysql_password(Password),
+    mysql_host_and_port(HP),
+    database_name(Db),
+    table_name(Table),
+    mysql_connect(HP, Db, User, Password, DbConnection),
+    mysql_table_types(DbConnection, Table, Types),
+    mysql_disconnect(DbConnection),
+    format("Results: ~w \n",Types).
