@@ -85,7 +85,7 @@ sqlstring( S ) :-
 
 answertableterm(ok).
 answertableterm(t(Answers)) :-
-    list(Answers,tuple).
+    list(tuple,Answers).
 answertableterm(err(Answer)) :-
     term(Answer).   
 
@@ -95,6 +95,6 @@ answertableterm(err(Answer)) :-
    interface.".
 
 tuple(T) :-
-    list(T,atm).
+    list(atm,T).
 
 :- doc(tuple/1,"@includedef{tuple/1}").

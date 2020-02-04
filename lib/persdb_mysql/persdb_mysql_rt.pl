@@ -94,7 +94,7 @@ database_desc(db(DBId,User,Passwd,Socket)) :-
    interface.".
 
 tuple(T) :-
-    list(T,atm).
+    list(atm,T).
 
 :- doc(tuple/1,"@includedef{tuple/1}").
 :- doc(doinclude, tuple/1).
@@ -106,7 +106,7 @@ tuple(T) :-
 
 answertableterm(ok).
 answertableterm(t(Answers)) :-
-    list(Answers,tuple).
+    list(tuple,Answers).
 answertableterm(err(Answer)) :-
     term(Answer).   
 
@@ -134,7 +134,7 @@ answertupleterm(tup(T)) :-
 prologPredTypes(PredTypes) :-
     PredTypes =.. [PredName|Types],
     atm(PredName),
-    list(Types,sqltype).
+    list(sqltype,Types).
 
 :- doc(tableAttributes/1,"@includedef{tableAttributes/1}").
 
@@ -144,7 +144,7 @@ prologPredTypes(PredTypes) :-
 tableAttributes(TableAttributes) :-
     TableAttributes =.. [TableName|AttributeNames],
     atm(TableName),
-    list(AttributeNames,atm).
+    list(atm,AttributeNames).
 
 :- prop persLocId(Id)  # "@var{Id} is the name of a persistent storage location.".
 
