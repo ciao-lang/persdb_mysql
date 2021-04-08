@@ -133,7 +133,7 @@ pl2sqlstring(ProjectionTerm, DatabaseGoal, SQLQueryString) :-
 :- regtype querybody(DBGoal) # "@var{DBGoal} is a database query goal.".
 
 querybody(DBGoal) :- 
-    callable(DBGoal).
+    cgoal(DBGoal).
 
 :- doc(querybody/1, "@var{DBGoal} is a goal meant to be executed in
    the external database. It can be a complex term containing
