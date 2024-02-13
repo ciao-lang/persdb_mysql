@@ -325,9 +325,7 @@ responses to the Prolog engine via backtracking.
 
 @section{Example(s)}
 
-@begin{verbatim}
-@includeverbatim{examples/people.pl}
-@end{verbatim}
+@includecode{examples/people.pl}
    ").
 
 %% ---------------------------------------------------------------------------

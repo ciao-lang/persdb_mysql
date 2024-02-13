@@ -60,9 +60,7 @@
    representing the SQL query  corresponding to the 
    given Prolog query:
 
-@begin{verbatim}
-@includeverbatim{examples/small_examples/pl2sql_example.pl}
-@end{verbatim}
+@includecode{examples/small_examples/pl2sql_example.pl}
 
    @begin{note}
    @bf{Note}: while the translator can be used directly in programs,
